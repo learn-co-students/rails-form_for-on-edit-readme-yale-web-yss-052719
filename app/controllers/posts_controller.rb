@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
 	def show
 		@post = Post.find(params[:id])
+		render :"/posts/show.html.erb"
 	end
 
 	def new
@@ -25,7 +26,7 @@ class PostsController < ApplicationController
 
 	def update
 	  @post = Post.find(params[:id])
-	  @post.update(title: params[:title], description: params[:description])
-	  redirect_to post_path(@post)
+	  @post.update(params.require(:post).permit(:title, :description))
+	  redirect_to "/posts/#{@post.id}"
 	end
 end
