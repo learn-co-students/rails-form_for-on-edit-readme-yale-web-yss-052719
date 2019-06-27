@@ -16,7 +16,7 @@ class PostsController < ApplicationController
 	  @post.title = params[:title]
 	  @post.description = params[:description]
 	  @post.save
-	  redirect_to post_path(@post)
+	  redirect_to posts_path(@post)
 	end
 
 	def edit
@@ -25,7 +25,7 @@ class PostsController < ApplicationController
 
 	def update
 	  @post = Post.find(params[:id])
-	  @post.update(title: params[:title], description: params[:description])
-	  redirect_to post_path(@post)
+	  @post.update(params.require(:post).permit(:title, :description))
+	  redirect_to posts_path(@post)
 	end
 end
